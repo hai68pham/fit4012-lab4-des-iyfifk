@@ -1,37 +1,50 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/B72A5Yyp)
-# FIT4012 - Lab 4: DES / TripleDES Starter Repository
+# FIT4012 - Lab 4: DES / TripleDES
 
-Repo này là **starter repo** cho Lab 4 của FIT4012.  
+## Giới thiệu
 
-## 1. Cấu trúc repo
+Đây là bài thực hành Lab 4 môn FIT4012 với nội dung xây dựng chương trình mô phỏng thuật toán mã hóa DES và TripleDES bằng ngôn ngữ C++.
 
-```text
+Chương trình hỗ trợ mã hóa và giải mã dữ liệu nhị phân theo đúng yêu cầu đề bài, có xử lý nhiều block dữ liệu, zero padding, kiểm thử tự động và cấu trúc repo hoàn chỉnh.
+
+---
+
+## Mục tiêu bài lab
+
+Sau khi hoàn thành bài thực hành, sinh viên có thể:
+
+* Hiểu nguyên lý hoạt động của DES.
+* Hiểu mô hình TripleDES.
+* Mã hóa và giải mã dữ liệu nhị phân.
+* Xử lý plaintext dài hơn 64 bit.
+* Áp dụng zero padding.
+* Viết test tự động.
+* Tổ chức project GitHub có CI.
+
+---
+
+## Cấu trúc repo
+
 .
-├── .github/
-│   ├── scripts/
-│   │   └── check_submission.sh
-│   └── workflows/
-│       └── ci.yml
-├── logs/
-│   ├── .gitkeep
-│   └── README.md
-├── scripts/
-│   └── run_sample.sh
-├── tests/
-│   ├── test_des_sample.sh
-│   ├── test_encrypt_decrypt_roundtrip.sh
-│   ├── test_multiblock_padding.sh
-│   ├── test_tamper_negative.sh
-│   └── test_wrong_key_negative.sh
-├── .gitignore
-├── CMakeLists.txt
-├── Makefile
-├── README.md
 ├── des.cpp
-└── report-1page.md
-```
+├── README.md
+├── report-1page.md
+├── Makefile
+├── CMakeLists.txt
+├── tests/
+└── logs/
 
-## 2. Cách chạy chương trình (How to run)
+---
+
+## Chế độ hoạt động
+
+1 = DES Encrypt
+2 = DES Decrypt
+3 = TripleDES Encrypt
+4 = TripleDES Decrypt
+
+---
+
+## Cách biên dịch và chạy
 
 ### Cách 1: Dùng Makefile
 
@@ -55,155 +68,140 @@ cmake --build build
 ./build/des
 ```
 
-## 3. Input / Đầu vào
+---
 
-TODO_STUDENT: Mô tả rõ đầu vào của chương trình sau khi em hoàn thiện bài lab.
+## Input
 
-Gợi ý nên nêu:
-- plaintext đang được nhập như thế nào
-- key đang được nhập như thế nào
-- chương trình nhận 1 block hay nhiều block
-- định dạng dữ liệu là chuỗi bit, chuỗi ký tự hay file
+Chương trình nhận dữ liệu từ bàn phím (`stdin`) theo thứ tự sau:
 
-## 4. Output / Đầu ra
-
-TODO_STUDENT: Mô tả rõ đầu ra của chương trình.
-
-Gợi ý nên nêu:
-- ciphertext hiển thị ra sao
-- có in round keys hay không
-- có hỗ trợ giải mã hay không
-- với TripleDES thì đầu ra gồm những gì
-
-## 5. Padding đang dùng
-
-TODO_STUDENT: Giải thích cơ chế padding em dùng.
-
-Gợi ý:
-- nếu plaintext dài hơn 64 bit thì chia block như thế nào
-- nếu thiếu bit thì pad bằng `0` ra sao
-- hạn chế của zero padding là gì
-- vì sao cách này chỉ phù hợp cho bài học nhập môn, không phải thiết kế an toàn hoàn chỉnh trong thực tế
-
-## 6. Tests bắt buộc
-
-Repo này đã tạo sẵn **5 tên file test mẫu** để sinh viên điền nội dung:
-
-- `tests/test_des_sample.sh`
-- `tests/test_encrypt_decrypt_roundtrip.sh`
-- `tests/test_multiblock_padding.sh`
-- `tests/test_tamper_negative.sh`
-- `tests/test_wrong_key_negative.sh`
-
-Sinh viên phải tự hoàn thiện test và bổ sung minh chứng chạy.
-
-## 7. Logs / Minh chứng
-
-Thư mục `logs/` dùng để nộp minh chứng, ví dụ:
-- ảnh chụp màn hình khi chạy chương trình
-- output của test
-- log thử đúng / sai key / tamper
-- log cho mã hóa nhiều block
-
-## 8. Ethics & Safe use
-
-- Chỉ chạy và kiểm thử trên dữ liệu học tập hoặc dữ liệu giả lập.
-- Không dùng repo này để tấn công hay can thiệp hệ thống thật.
-- Không trình bày đây là công cụ bảo mật sẵn sàng cho môi trường sản xuất.
-- Nếu tham khảo mã, tài liệu, công cụ hoặc AI, phải ghi nguồn rõ ràng.
-- Khi cộng tác nhóm, cần trung thực học thuật và mô tả đúng phần việc của mình.
-- Việc kiểm thử chỉ phục vụ học DES / TripleDES ở mức nhập môn.
-
-## 9. Checklist nộp bài
-
-Trước khi nộp, cần có:
-- `des.cpp`
-- `README.md` hoàn chỉnh
-- `report-1page.md` hoàn chỉnh
-- `tests/` với ít nhất 5 test
-- có negative test cho `tamper` và `wrong key`
-- `logs/` có ít nhất 1 file minh chứng thật
-- không còn dòng `TODO_STUDENT`
-
-## 10. Lưu ý về CI
-
-CI sẽ **không chỉ kiểm tra file có tồn tại** mà còn kiểm tra:
-- các mục bắt buộc trong README
-- các mục bắt buộc trong report
-- sự hiện diện của negative tests
-- có minh chứng trong `logs/`
-- repo **không còn placeholder `TODO_STUDENT`**
-
-Vì vậy repo starter này sẽ **chưa pass CI** cho tới khi sinh viên hoàn thiện nội dung.
-
-
-## 11. Submission contract để auto-check Q2 và Q4
-
-Để GitHub Actions kiểm tra được **Q2** và **Q4**, repo này dùng **một contract nhập/xuất thống nhất**.
-Sinh viên cần sửa `des.cpp` để chương trình nhận dữ liệu từ **stdin** theo đúng thứ tự sau:
+### Mode 1: DES Encrypt
 
 ```text
-Chọn mode:
-1 = DES encrypt
-2 = DES decrypt
-3 = TripleDES encrypt
-4 = TripleDES decrypt
+1
+plaintext nhị phân
+key 64-bit
 ```
 
-### Mode 1: DES encrypt 
-Nhập lần lượt:
-1. `1`
-2. plaintext nhị phân
-3. key 64-bit
+### Mode 2: DES Decrypt
 
-Yêu cầu:
-- nếu plaintext dài hơn 64 bit: chia block 64 bit và mã hóa tuần tự
-- nếu block cuối thiếu bit: zero padding
-- in ra **ciphertext cuối cùng** dưới dạng chuỗi nhị phân
+```text
+2
+ciphertext nhị phân
+key 64-bit
+```
 
-### Mode 2: DES decrypt
-Nhập lần lượt:
-1. `2`
-2. ciphertext nhị phân
-3. key 64-bit
+### Mode 3: TripleDES Encrypt
 
-Yêu cầu:
-- giải mã DES theo round keys đảo ngược
-- in ra plaintext cuối cùng
+```text
+3
+plaintext 64-bit
+K1
+K2
+K3
+```
 
-### Mode 3: TripleDES encrypt 
-Nhập lần lượt:
-1. `3`
-2. plaintext 64-bit
-3. `K1`
-4. `K2`
-5. `K3`
+### Mode 4: TripleDES Decrypt
 
-Yêu cầu:
-- thực hiện đúng chuỗi **E(K3, D(K2, E(K1, P)))**
-- in ra ciphertext cuối cùng
+```text
+4
+ciphertext 64-bit
+K1
+K2
+K3
+```
 
-### Mode 4: TripleDES decrypt 
-Nhập lần lượt:
-1. `4`
-2. ciphertext 64-bit
-3. `K1`
-4. `K2`
-5. `K3`
+---
 
-Yêu cầu:
-- thực hiện giải mã TripleDES ngược lại
-- in ra plaintext cuối cùng
+## Output
 
-### Lưu ý về output
-- Có thể in prompt tiếng Việt hoặc tiếng Anh.
-- Có thể in thêm round keys hay thông báo trung gian.
-- Nhưng **kết quả cuối cùng phải xuất hiện dưới dạng một chuỗi nhị phân dài hợp lệ** để CI tách và đối chiếu.
+Chương trình in ra kết quả cuối cùng dưới dạng chuỗi nhị phân:
 
-## 14. CI hiện kiểm tra được gì
+* Ciphertext sau khi mã hóa
+* Plaintext sau khi giải mã
 
-Ngoài checklist nộp bài, CI hiện còn kiểm tra tự động:
-- chương trình thực sự nhận plaintext/key từ bàn phím và mã hóa multi-block với zero padding đúng.
-- chương trình thực sự mã hóa và giải mã TripleDES đúng theo vector kiểm thử.
+---
 
-Nói cách khác, nếu sinh viên chỉ sửa README/tests cho đủ hình thức mà **không làm Q2 hoặc Q4**, CI sẽ vẫn fail.
+## Padding
+
+Chương trình sử dụng **zero padding**:
+
+* Nếu plaintext dài hơn 64 bit sẽ chia thành nhiều block 64 bit.
+* Nếu block cuối chưa đủ 64 bit thì thêm bit `0` vào cuối.
+
+### Hạn chế
+
+* Không phân biệt được dữ liệu thật và bit thêm vào.
+* Không phù hợp cho hệ thống thực tế.
+* Chỉ dùng cho mục đích học tập.
+
+---
+
+## Thuật toán sử dụng
+
+### DES
+
+DES là thuật toán mã hóa đối xứng xử lý dữ liệu theo block 64 bit.
+
+### TripleDES
+
+Mã hóa:
+
+```text
+E(K3, D(K2, E(K1, P)))
+```
+
+Giải mã:
+
+```text
+D(K1, E(K2, D(K3, C)))
+```
+
+---
+
+## Chức năng đã hoàn thành
+
+* DES Encrypt
+* DES Decrypt
+* TripleDES Encrypt
+* TripleDES Decrypt
+* Multi-block processing
+* Zero padding
+* Keyboard input
+
+---
+
+## Tests
+
+Thư mục `tests/` gồm:
+
+* test_des_sample.sh
+* test_encrypt_decrypt_roundtrip.sh
+* test_multiblock_padding.sh
+* test_tamper_negative.sh
+* test_wrong_key_negative.sh
+
+---
+
+## Logs
+
+Thư mục `logs/` chứa:
+
+* Kết quả chạy chương trình
+* Kết quả test
+* Minh chứng đúng / sai key
+* Minh chứng tamper
+
+---
+
+## Ethics & Safe use
+
+* Chỉ sử dụng cho mục đích học tập.
+* Không dùng để tấn công hệ thống thật.
+* Không xem đây là công cụ bảo mật thương mại.
+* Tôn trọng trung thực học thuật.
+
+---
+
+## Kết luận
+
+Bài lab giúp sinh viên hiểu nguyên lý DES, TripleDES, xử lý block dữ liệu và rèn luyện kỹ năng lập trình C++, kiểm thử phần mềm và tổ chức project GitHub.
