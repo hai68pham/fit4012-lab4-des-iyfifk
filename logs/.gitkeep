@@ -1,0 +1,18 @@
+DES Encrypt Test
+
+Input:
+1
+10101010
+1111000011110000111100001111000011110000111100001111000011110000
+
+Output:
+0101010101010101
+
+Roundtrip Test:
+Encrypt -> Decrypt -> Original Restored
+
+Wrong Key Test:
+Decrypted result != plaintext
+
+Tamper Test:
+Modified ciphertext gives incorrect plaintext
