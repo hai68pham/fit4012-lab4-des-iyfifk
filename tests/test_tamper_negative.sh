@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 # Đảm bảo đường dẫn tới file thực thi đúng (thường là ./des ở thư mục gốc)
 DES_EXE="./des"
 
