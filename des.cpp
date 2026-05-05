@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // ===== BASIC FUNCTIONS =====
 // Thực hiện phép XOR giữa hai chuỗi nhị phân
 string xor_strings(string a, string b) {
