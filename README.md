@@ -1,207 +1,133 @@
-# FIT4012 - Lab 4: DES / TripleDES
+## 1. How to run / Cách chạy
 
-## Giới thiệu
-
-Đây là bài thực hành Lab 4 môn FIT4012 với nội dung xây dựng chương trình mô phỏng thuật toán mã hóa DES và TripleDES bằng ngôn ngữ C++.
-
-Chương trình hỗ trợ mã hóa và giải mã dữ liệu nhị phân theo đúng yêu cầu đề bài, có xử lý nhiều block dữ liệu, zero padding, kiểm thử tự động và cấu trúc repo hoàn chỉnh.
-
----
-
-## Mục tiêu bài lab
-
-Sau khi hoàn thành bài thực hành, sinh viên có thể:
-
-* Hiểu nguyên lý hoạt động của DES.
-* Hiểu mô hình TripleDES.
-* Mã hóa và giải mã dữ liệu nhị phân.
-* Xử lý plaintext dài hơn 64 bit.
-* Áp dụng zero padding.
-* Viết test tự động.
-* Tổ chức project GitHub có CI.
-
----
-
-## Cấu trúc repo
-
-.
-├── des.cpp
-├── README.md
-├── report-1page.md
-├── Makefile
-├── CMakeLists.txt
-├── tests/
-└── logs/
-
----
-
-## Chế độ hoạt động
-
-1 = DES Encrypt
-2 = DES Decrypt
-3 = TripleDES Encrypt
-4 = TripleDES Decrypt
-
----
-
-## Cách biên dịch và chạy
-
-### Cách 1: Dùng Makefile
-
-```bash
-make
-./des
-```
-
-### Cách 2: Biên dịch trực tiếp
+### Compile / Biên dịch
 
 ```bash
 g++ -std=c++17 -Wall -Wextra -pedantic des.cpp -o des
-./des
 ```
 
-### Cách 3: Dùng CMake
+### Run / Chạy chương trình
 
 ```bash
-cmake -S . -B build
-cmake --build build
-./build/des
+./des
 ```
+---
+
+## 2. Input / Đầu vào
+
+Chương trình nhận dữ liệu từ bàn phím (stdin) theo mode:
+
+```
+1 = DES encrypt  
+2 = DES decrypt  
+3 = TripleDES encrypt  
+4 = TripleDES decrypt  
+```
+
+### Mode 1 (DES encrypt)
+
+* plaintext: chuỗi nhị phân (có thể dài > 64 bit)
+* key: chuỗi nhị phân 64-bit
+
+### Mode 2 (DES decrypt)
+
+* ciphertext: chuỗi nhị phân
+* key: chuỗi nhị phân 64-bit
+
+### Mode 3 (TripleDES encrypt)
+
+* plaintext: 64 bit
+* K1, K2, K3: key 64-bit
+
+### Mode 4 (TripleDES decrypt)
+
+* ciphertext: 64 bit
+* K1, K2, K3
 
 ---
 
-## Input
+## 3. Output / Đầu ra
 
-Chương trình nhận dữ liệu từ bàn phím (`stdin`) theo thứ tự sau:
-
-### Mode 1: DES Encrypt
-
-```text
-1
-plaintext nhị phân
-key 64-bit
-```
-
-### Mode 2: DES Decrypt
-
-```text
-2
-ciphertext nhị phân
-key 64-bit
-```
-
-### Mode 3: TripleDES Encrypt
-
-```text
-3
-plaintext 64-bit
-K1
-K2
-K3
-```
-
-### Mode 4: TripleDES Decrypt
-
-```text
-4
-ciphertext 64-bit
-K1
-K2
-K3
-```
+* In ra kết quả cuối cùng dưới dạng chuỗi nhị phân
+* Không chứa ký tự không hợp lệ
+* Có thể có thông tin trung gian nhưng kết quả cuối phải rõ ràng
 
 ---
 
-## Output
-
-Chương trình in ra kết quả cuối cùng dưới dạng chuỗi nhị phân:
-
-* Ciphertext sau khi mã hóa
-* Plaintext sau khi giải mã
-
----
-
-## Padding
+## 4. Padding
 
 Chương trình sử dụng **zero padding**:
 
-* Nếu plaintext dài hơn 64 bit sẽ chia thành nhiều block 64 bit.
-* Nếu block cuối chưa đủ 64 bit thì thêm bit `0` vào cuối.
+* Nếu plaintext không chia hết cho 64 bit
+* Block cuối sẽ được thêm các bit `0` cho đủ 64 bit
 
-### Hạn chế
+Ví dụ:
 
-* Không phân biệt được dữ liệu thật và bit thêm vào.
-* Không phù hợp cho hệ thống thực tế.
-* Chỉ dùng cho mục đích học tập.
-
----
-
-## Thuật toán sử dụng
-
-### DES
-
-DES là thuật toán mã hóa đối xứng xử lý dữ liệu theo block 64 bit.
-
-### TripleDES
-
-Mã hóa:
-
-```text
-E(K3, D(K2, E(K1, P)))
+```
+10101 → 101010000000000... (đủ 64 bit)
 ```
 
-Giải mã:
+### Hạn chế:
 
-```text
-D(K1, E(K2, D(K3, C)))
-```
-
----
-
-## Chức năng đã hoàn thành
-
-* DES Encrypt
-* DES Decrypt
-* TripleDES Encrypt
-* TripleDES Decrypt
-* Multi-block processing
-* Zero padding
-* Keyboard input
+* Không phân biệt được dữ liệu thật và padding
+* Không phù hợp cho hệ thống bảo mật thực tế
 
 ---
 
-## Tests
+## 5. Cryptography Notes
 
-Thư mục `tests/` gồm:
+### IV / Nonce
 
-* test_des_sample.sh
-* test_encrypt_decrypt_roundtrip.sh
-* test_multiblock_padding.sh
-* test_tamper_negative.sh
-* test_wrong_key_negative.sh
+IV (Initialization Vector) hoặc nonce phải **unique (duy nhất)** cho mỗi lần mã hóa.
+Nếu tái sử dụng, attacker có thể suy ra thông tin từ ciphertext.
+
+### Padding
+
+Padding cần thiết trong block cipher để đảm bảo dữ liệu chia hết block.
+Sai padding có thể gây lỗi hoặc bị khai thác.
+
+### CBC / CTR / GCM
+
+* CBC: cần IV và padding
+* CTR: không cần padding
+* GCM: có authentication tag đảm bảo toàn vẹn dữ liệu
 
 ---
 
-## Logs
+## 6. Tests
+
+Thư mục `tests/` bao gồm:
+
+* DES sample test
+* encrypt/decrypt round-trip
+* multi-block padding
+* tamper test
+* wrong key test
+
+---
+
+## 7. Logs
 
 Thư mục `logs/` chứa:
 
-* Kết quả chạy chương trình
-* Kết quả test
-* Minh chứng đúng / sai key
-* Minh chứng tamper
+* output chạy chương trình
+* test case minh chứng
+* kết quả đúng/sai
 
 ---
 
-## Ethics & Safe use
+## 8. Ethics & Safe Use
 
-* Chỉ sử dụng cho mục đích học tập.
-* Không dùng để tấn công hệ thống thật.
-* Không xem đây là công cụ bảo mật thương mại.
-* Tôn trọng trung thực học thuật.
+* Chỉ sử dụng cho mục đích học tập
+* Không dùng trong hệ thống thực tế
+* Không sử dụng để tấn công
+* Tuân thủ đạo đức và an toàn thông tin
 
 ---
 
-## Kết luận
+## 9. Summary
 
-Bài lab giúp sinh viên hiểu nguyên lý DES, TripleDES, xử lý block dữ liệu và rèn luyện kỹ năng lập trình C++, kiểm thử phần mềm và tổ chức project GitHub.
+* Implement DES và TripleDES
+* Hỗ trợ encrypt/decrypt
+* Hỗ trợ multi-block + zero padding
+* Có test và logs minh chứng đầy đủ
