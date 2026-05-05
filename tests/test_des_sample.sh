@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 # 1. Đường dẫn tới file thực thi DES (giả định nằm ở thư mục gốc sau khi build)
 DES_EXE="./des"
 
