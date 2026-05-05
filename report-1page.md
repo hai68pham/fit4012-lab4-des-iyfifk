@@ -1,6 +1,5 @@
 # Báo cáo thực hành Lab 4
 
-
 **1. Mục tiêu:**
 * Phân tích quy trình hoạt động của thuật toán DES và TripleDES.
 * Triển khai thành công cơ chế chia khối và Zero Padding cho dữ liệu thực tế.
